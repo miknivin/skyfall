@@ -1,0 +1,46 @@
+@use '../utils/' as *;
+
+/*----------------------------------------*/
+/*    33. compare css start
+/*----------------------------------------*/
+
+.compare-container {
+  padding: 20px;
+  margin: 0 auto;
+  text-align: center;
+  overflow-x: scroll;
+  @media #{$xs} {
+    padding: 10px;
+  }
+  h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+
+    th,
+    td {
+      padding: 15px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f8f8f8;
+      font-weight: bold;
+    }
+
+    td {
+      background-color: #fff;
+
+      &.compare-image {
+        max-width: 150px;
+        height: auto;
+      }
+    }
+  }
+}

@@ -1,0 +1,219 @@
+.guest-detail {
+  background-color: #fff;
+  padding: 30px;
+  border: 1px solid #ced4da;
+}
+
+.guest-detail h2 {
+  font-size: calc(16px + 6 * (100vw - 320px) / 1600);
+  text-transform: capitalize;
+  margin-top: -6px;
+  margin-bottom: 20px;
+}
+
+.guest-detail .form-group {
+  margin-bottom: 20px;
+}
+
+.guest-detail form .input-group-text {
+  border-left: none;
+  color: #495057;
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 2.9;
+  padding: 0.375rem 1.75rem;
+  cursor: pointer;
+}
+
+.guest-detail form .input-group-text:hover {
+  background-color: #e9ecef;
+  border: 1px solid #ced4da;
+  box-shadow: none;
+  border-left: 0;
+}
+
+.guest-detail form label {
+  text-transform: capitalize;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.guest-detail form .form-control {
+  border-radius: 0;
+}
+
+.guest-detail form .form-control {
+  outline: none;
+  box-shadow: none;
+  border-color: #ced4da;
+}
+
+.guest-detail form .submit-btn {
+  text-align: right;
+}
+
+.guest-detail form .submit-btn .btn {
+  width: 25%;
+  margin-top: 30px;
+}
+
+.guest-detail .first-name .iti__flag-container {
+  display: none;
+}
+
+.summery-box {
+  background-color: #fff;
+  padding: 30px;
+  border: 1px solid #ced4da;
+}
+
+.summery-box h2 {
+  font-size: calc(16px + 6 * (100vw - 320px) / 1600);
+  text-transform: capitalize;
+}
+
+.summery-box .hotel-section {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.summery-box .hotel-section .hotel-img {
+  width: 35%;
+}
+
+.summery-box .hotel-section .hotel-detail {
+  margin-left: 20px;
+}
+
+.summery-box .hotel-section .hotel-detail h6 {
+  font-weight: 700;
+  text-transform: capitalize;
+  margin-bottom: 4px;
+  margin-top: -2px;
+  font-size: calc(14px + 4 * (100vw - 320px) / 1600);
+}
+
+.summery-box .hotel-section .hotel-detail p {
+  margin-bottom: -3px;
+  color: #000;
+}
+
+.summery-box .summery-section {
+  display: flex;
+  width: 100%;
+  margin-top: 12px;
+  padding-top: 15px;
+  align-items: center;
+  border-top: 1px solid #ced4da;
+}
+
+.summery-box .summery-section .box {
+  width: 100%;
+}
+
+.summery-box .summery-section .box .right {
+  text-align: right;
+  width: 49%;
+  display: inline-block;
+}
+
+.summery-box .summery-section .box .left {
+  width: 50%;
+  display: inline-block;
+}
+
+.summery-box .summery-section .box .down {
+  margin-top: 10px;
+}
+
+.summery-box .summery-section .box .down h5 {
+  margin-bottom: -4px;
+}
+
+.summery-box .summery-section h6 {
+  font-size: 14px;
+  text-transform: capitalize;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.summery-box .summery-section .edit-cls,
+.summery-box .summery-section h5 {
+  font-size: calc(14px + 2 * (100vw - 320px) / 1600);
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+.summery-box .summery-section .edit-cls {
+  color: rgba(var(--theme-color1), 1);
+  margin-left: auto;
+}
+
+.summery-box .summery-section .payment-details,
+.summery-box .summery-section .payment-details table {
+  width: 100%;
+}
+
+.summery-box .summery-section .payment-details table tbody tr td:first-child {
+  width: 70%;
+  text-transform: capitalize;
+}
+
+.summery-box .summery-section .payment-details table tbody tr td.amount {
+  font-size: calc(16px + 6 * (100vw - 320px) / 1600);
+}
+
+.summery-box .summery-section .payment-details table tbody tr td:nth-child(2) {
+  text-align: right;
+  font-weight: 700;
+}
+
+.summery-box .summery-section td {
+  color: #000;
+}
+
+.custom-payment {
+  border: 1px solid #ced4da;
+  margin: 10px;
+  padding: 20px;
+}
+
+.custom-payment .form-group label {
+  text-transform: capitalize;
+  color: #6b6f6a;
+}
+
+.form-control-2 {
+  height: 40px;
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  text-transform: capitalize;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-clip: padding-box;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.card-img {
+  width: 140px;
+  height: 23px;
+  position: absolute;
+  right: 10px;
+  bottom: 18px;
+}
+
+.cvv-img {
+  width: 35px;
+  height: 23px;
+  position: absolute;
+  right: 14px;
+  bottom: 8px;
+}
