@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { AdminRequest } from "@/types/admin-request";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 const schema = Yup.object().shape({
   firstName: Yup.string().required("First name is required"),
@@ -62,7 +63,7 @@ const StepOne: React.FC<StepOneProps> = ({
 
   const onSubmit = (data: any) => {
     const fullName = `${data.firstName} ${data.lastName}`.trim();
-    setFormData((prev:any) => ({
+    setFormData((prev: any) => ({
       ...prev,
       name: fullName,
       email: data.email,
@@ -70,6 +71,8 @@ const StepOne: React.FC<StepOneProps> = ({
     }));
     handleNext();
   };
+
+
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -84,7 +87,13 @@ const StepOne: React.FC<StepOneProps> = ({
               placeholder="First name"
               {...register("firstName")}
             />
-            <ErrorMsg msg={typeof errors.firstName?.message === "string" ? errors.firstName.message : ""} />
+            <ErrorMsg
+              msg={
+                typeof errors.firstName?.message === "string"
+                  ? errors.firstName.message
+                  : ""
+              }
+            />
           </div>
         </div>
         <div className="col-sm-6 mb-20">
@@ -96,7 +105,13 @@ const StepOne: React.FC<StepOneProps> = ({
               placeholder="Last name"
               {...register("lastName")}
             />
-            <ErrorMsg msg={typeof errors.lastName?.message === "string" ? errors.lastName.message : ""} />
+            <ErrorMsg
+              msg={
+                typeof errors.lastName?.message === "string"
+                  ? errors.lastName.message
+                  : ""
+              }
+            />
           </div>
         </div>
         <div className="col-sm-6 mb-20">
@@ -108,7 +123,13 @@ const StepOne: React.FC<StepOneProps> = ({
               placeholder="Email address"
               {...register("email")}
             />
-            <ErrorMsg msg={typeof errors.email?.message === "string" ? errors.email.message : ""} />
+            <ErrorMsg
+              msg={
+                typeof errors.email?.message === "string"
+                  ? errors.email.message
+                  : ""
+              }
+            />
           </div>
         </div>
         <div className="col-sm-6 mb-20">
@@ -120,7 +141,13 @@ const StepOne: React.FC<StepOneProps> = ({
               placeholder="Phone"
               {...register("phone")}
             />
-            <ErrorMsg msg={typeof errors.phone?.message === "string" ? errors.phone.message : ""} />
+            <ErrorMsg
+              msg={
+                typeof errors.phone?.message === "string"
+                  ? errors.phone.message
+                  : ""
+              }
+            />
           </div>
         </div>
       </div>

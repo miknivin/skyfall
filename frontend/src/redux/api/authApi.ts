@@ -46,12 +46,12 @@ export const authApi = createApi({
       async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          // Cookies.set("token", data.token, {
-          //   expires: 7,
-          //   path: "/",
-          //   sameSite: "Lax",
-          //   secure: process.env.NODE_ENV === "production",
-          // });
+          Cookies.set("token", data.token, {
+            expires: 7,
+            path: "/",
+            sameSite: "Lax",
+            secure: process.env.NODE_ENV === "production",
+          });
           dispatch(setUser(data.user));
           dispatch(setIsAuthenticated(true));
           await dispatch(userApi.endpoints.getMe.initiate());

@@ -10,6 +10,7 @@ import socialImg2 from "@/assets/img/inner-page/contact/soacial-2.png";
 import socialImg3 from "@/assets/img/inner-page/contact/soacial-3.png";
 import { useLoginMutation } from "@/redux/api/authApi";
 import { useRouter, useSearchParams } from "next/navigation";
+import toast from "react-hot-toast";
 
 type FormData = {
   email: string;
@@ -43,7 +44,7 @@ const SignInForm = () => {
   const onSubmit = handleSubmit(async (data: FormData) => {
     try {
       const response = await login(data).unwrap();
-      alert("Login successful!");
+      toast.success("Login success");
       const proceedtopp = searchParams?.get("proceedtopp") || undefined;
       if (proceedtopp === "proceed") {
         router.push("/partner-program");

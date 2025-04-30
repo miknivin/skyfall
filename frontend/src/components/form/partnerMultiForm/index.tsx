@@ -1,15 +1,23 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import StepOne from "./StepOne";
 import { AdminRequest } from "@/types/admin-request";
 import StepTwo from "./StepTwo";
 import { useAdminRequestMutation } from "@/redux/api/adminApi";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/rootReducer";
 
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 const PartnerMultiForm: React.FC = () => {
   const [step, setStep] = useState(1);
+  const router = useRouter();
+  const { isAuthenticated, user } = useSelector(
+    (state: RootState) => state.user
+  );
   const [formData, setFormData] = useState<AdminRequest>({
-    userId: "67fe199458af3e26e034ec9c",
+    userId: user ? user._id : "",
     name: "",
     email: "",
     phone: "",
@@ -18,6 +26,12 @@ const PartnerMultiForm: React.FC = () => {
     },
   });
 
+  useEffect(() => {
+    if (!isAuthenticated) {
+      toast.error("Please log in to access this form.");
+      router.push("/");
+    }
+  }, [isAuthenticated, router]);
   // Initialize the mutation hook
   const [adminRequest, { isLoading, isError, error }] =
     useAdminRequestMutation();
@@ -27,7 +41,7 @@ const PartnerMultiForm: React.FC = () => {
   const handleSubmit = async () => {
     try {
       const response = await adminRequest(formData).unwrap();
-      console.log("Submission successful:", response);
+      //console.log("Submission successful:", response);
       // Optionally reset form or navigate to a success page
       setFormData({
         name: "",
@@ -39,8 +53,9 @@ const PartnerMultiForm: React.FC = () => {
       });
       localStorage.removeItem("stepOneInputs");
       setStep(1); // Reset to step 1 or redirect as needed
-    } catch (err) {
+    } catch (err: any) {
       console.error("Submission failed:", err);
+      toast.error(err ? err?.data?.message : "Unexpected Error");
       // Handle error (e.g., show error message to user)
     }
   };
@@ -120,7 +135,7 @@ const PartnerMultiForm: React.FC = () => {
 
       {/* Optional: Display loading or error states */}
       {isLoading && <p>Submitting...</p>}
-      {isError && <p>Error: {"Submission failed"}</p>}
+      {/* {isError && <p>Error: {"Submission failed"}</p>} */}
     </>
   );
 };

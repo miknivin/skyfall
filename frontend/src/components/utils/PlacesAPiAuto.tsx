@@ -29,11 +29,18 @@ const PlacesAutocomplete: React.FC<PlacesAutocompleteProps> = ({
   const [inputValue, setInputValue] = useState(value || "");
   const [predictions, setPredictions] = useState<Prediction[]>([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isPlaceSelected, setIsPlaceSelected] = useState(false);
+  const [selectedPlaceName, setSelectedPlaceName] = useState<string>("");
+  const [isFetchingPredictions, setIsFetchingPredictions] = useState(false);
 
-  // Sync inputValue with value prop
   useEffect(() => {
     setInputValue(value || "");
-  }, [value]);
+    // Reset selected state if external value changes
+    if (value !== selectedPlaceName) {
+      setIsPlaceSelected(false);
+      setSelectedPlaceName("");
+    }
+  }, [value, selectedPlaceName]);
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string,
@@ -45,25 +52,28 @@ const PlacesAutocomplete: React.FC<PlacesAutocompleteProps> = ({
     if (!isLoaded || !inputValue || inputValue.trim() === "") {
       setPredictions([]);
       setIsDropdownOpen(false);
+      setIsFetchingPredictions(false);
       return;
     }
 
     const delayDebounce = setTimeout(async () => {
-      const { AutocompleteSessionToken, AutocompleteSuggestion } =
-        (await google.maps.importLibrary(
-          "places"
-        )) as google.maps.PlacesLibrary;
-
-      const token = new google.maps.places.AutocompleteSessionToken();
-
-      const request = {
-        input: inputValue,
-        language: "en",
-        region: "in",
-        sessionToken: token,
-      };
+      setIsFetchingPredictions(true);
 
       try {
+        const { AutocompleteSessionToken, AutocompleteSuggestion } =
+          (await google.maps.importLibrary(
+            "places"
+          )) as google.maps.PlacesLibrary;
+
+        const token = new google.maps.places.AutocompleteSessionToken();
+
+        const request = {
+          input: inputValue,
+          language: "en",
+          region: "in",
+          sessionToken: token,
+        };
+
         const { suggestions } =
           await google.maps.places.AutocompleteSuggestion.fetchAutocompleteSuggestions(
             request
@@ -89,17 +99,34 @@ const PlacesAutocomplete: React.FC<PlacesAutocompleteProps> = ({
         }
 
         setPredictions(newPredictions);
-        setIsDropdownOpen(true);
+        // Only open dropdown if no place is selected or input doesn't match selected place
+        setIsDropdownOpen(!isPlaceSelected || inputValue !== selectedPlaceName);
       } catch (error) {
         console.error("Error fetching suggestions:", error);
+        setPredictions([]);
+        setIsDropdownOpen(false);
+      } finally {
+        setIsFetchingPredictions(false);
       }
     }, 300);
 
     return () => clearTimeout(delayDebounce);
-  }, [inputValue, isLoaded]);
+  }, [inputValue, isLoaded, isPlaceSelected, selectedPlaceName]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
+    setInputValue(newValue);
+    // If input changes from selected place, allow dropdown to show
+    if (isPlaceSelected && newValue !== selectedPlaceName) {
+      setIsPlaceSelected(false);
+      setIsDropdownOpen(true);
+    }
+  };
 
   const handlePredictionClick = (prediction: Prediction) => {
     setInputValue(prediction.displayName);
+    setSelectedPlaceName(prediction.displayName);
+    setIsPlaceSelected(true);
     setIsDropdownOpen(false);
 
     if (onLocationSelect && prediction.latitude && prediction.longitude) {
@@ -120,36 +147,51 @@ const PlacesAutocomplete: React.FC<PlacesAutocompleteProps> = ({
       <input
         type="text"
         value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        onFocus={() => predictions.length > 0 && setIsDropdownOpen(true)}
+        onChange={handleInputChange}
+        onFocus={() =>
+          predictions.length > 0 &&
+          (!isPlaceSelected || inputValue !== selectedPlaceName) &&
+          setIsDropdownOpen(true)
+        }
         placeholder="Search places..."
         className="form-control"
       />
-      {isDropdownOpen && predictions.length > 0 && (
+      {(isDropdownOpen || isFetchingPredictions) && (
         <ul
           className="dropdown-menu show w-100"
           style={{ maxHeight: "200px", overflowY: "auto" }}
         >
-          {predictions.map((prediction, index) => (
-            <li
-              key={index}
-              className="dropdown-item"
-              onClick={() => handlePredictionClick(prediction)}
-              style={{ cursor: "pointer" }}
-            >
-              <div>
-                <strong style={{ fontSize: "16px" }} className="address-clamp">
-                  {prediction.displayName}
-                </strong>
-                <div
-                  className="text-muted address-clamp"
-                  style={{ fontSize: "0.875rem" }}
-                >
-                  {prediction.formattedAddress}
-                </div>
+          {isFetchingPredictions ? (
+            <li className="dropdown-item text-center">
+              <div className="spinner-border text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
               </div>
             </li>
-          ))}
+          ) : (
+            predictions.map((prediction, index) => (
+              <li
+                key={index}
+                className="dropdown-item"
+                onClick={() => handlePredictionClick(prediction)}
+                style={{ cursor: "pointer" }}
+              >
+                <div>
+                  <strong
+                    style={{ fontSize: "16px" }}
+                    className="address-clamp"
+                  >
+                    {prediction.displayName}
+                  </strong>
+                  <div
+                    className="text-muted address-clamp"
+                    style={{ fontSize: "0.875rem" }}
+                  >
+                    {prediction.formattedAddress}
+                  </div>
+                </div>
+              </li>
+            ))
+          )}
         </ul>
       )}
     </div>

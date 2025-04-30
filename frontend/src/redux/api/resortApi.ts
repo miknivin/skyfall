@@ -36,5 +36,5 @@ export const resortApi = createApi({
   }),
 });
 
-// ✅ Correct export
+
 export const { useGetAllResortsQuery, useGetResortByIdQuery } = resortApi;

@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Resort } from "@/types/admin-request";
 import PlacesAutocomplete from "@/components/utils/PlacesAPiAuto";
 import FileUploadDropzone from "./formInputs/FileUpload";
+import toast from "react-hot-toast";
 
 interface StepTwoProps {
   resorts: Resort[];
@@ -18,27 +19,66 @@ const StepTwo: React.FC<StepTwoProps> = ({
   handleBack,
   handleSubmit,
 }) => {
-  const [newResort, setNewResort] = useState<Resort>({
-    name: "",
-    location: {
-      latitude: 0,
-      longitude: 0,
-      displayName: "",
-      formattedAddress: "",
-    },
-    description: "",
-    documents: [],
-  });
+  // Initialize newResort from local storage or default
+  const getInitialResort = (): Resort => {
+    if (typeof window !== "undefined") {
+      const savedData = localStorage.getItem("stepTwoResort");
+      if (savedData) {
+        try {
+          const parsedData: Resort = JSON.parse(savedData);
+          // Validate parsed data
+          if (
+            parsedData &&
+            typeof parsedData.name === "string" &&
+            parsedData.location &&
+            typeof parsedData.location.latitude === "number" &&
+            typeof parsedData.location.longitude === "number" &&
+            typeof parsedData.location.displayName === "string" &&
+            typeof parsedData.location.formattedAddress === "string" &&
+            typeof parsedData.description === "string" &&
+            Array.isArray(parsedData.documents)
+          ) {
+            return parsedData;
+          }
+        } catch (error) {
+          console.error(
+            "Error parsing stepTwoResort from local storage:",
+            error
+          );
+        }
+      }
+    }
+    return {
+      name: "",
+      location: {
+        latitude: 0,
+        longitude: 0,
+        displayName: "",
+        formattedAddress: "",
+      },
+      description: "",
+      documents: [],
+    };
+  };
+
+  const [newResort, setNewResort] = useState<Resort>(getInitialResort());
+
+  // Save newResort to local storage whenever it changes
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("stepTwoResort", JSON.stringify(newResort));
+    }
+  }, [newResort]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setNewResort((prev:any) => ({ ...prev, [name]: value }));
+    setNewResort((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleLocationSelect = (locationData: Resort["location"]) => {
-    setNewResort((prev:any) => ({
+    setNewResort((prev) => ({
       ...prev,
       location: locationData,
     }));
@@ -48,14 +88,12 @@ const StepTwo: React.FC<StepTwoProps> = ({
     document: { name: string; url: string },
     documentType: "license" | "registration"
   ) => {
-    // Check if a document of the same type already exists
     const existingDocIndex =
-      newResort.documents?.findIndex((doc:any) => doc.type === documentType) ?? -1;
+      newResort.documents?.findIndex((doc) => doc.type === documentType) ?? -1;
     const newDocument = { ...document, type: documentType };
 
     if (existingDocIndex >= 0) {
-      // Replace the existing document of the same type
-      setNewResort((prev:any) => ({
+      setNewResort((prev) => ({
         ...prev,
         documents: [
           ...(prev.documents?.slice(0, existingDocIndex) ?? []),
@@ -64,8 +102,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
         ],
       }));
     } else {
-      // Add the new document
-      setNewResort((prev:any) => ({
+      setNewResort((prev) => ({
         ...prev,
         documents: [...(prev.documents ?? []), newDocument],
       }));
@@ -73,10 +110,10 @@ const StepTwo: React.FC<StepTwoProps> = ({
   };
 
   const handleRemoveFile = (documentType: "license" | "registration") => {
-    setNewResort((prev:any) => ({
+    setNewResort((prev) => ({
       ...prev,
       documents:
-        prev.documents?.filter((doc:any) => doc.type !== documentType) ?? [],
+        prev.documents?.filter((doc) => doc.type !== documentType) ?? [],
     }));
   };
 
@@ -97,6 +134,10 @@ const StepTwo: React.FC<StepTwoProps> = ({
       description: "",
       documents: [],
     });
+    // Clear local storage after adding resort
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("stepTwoResort");
+    }
   };
 
   const handleEditResort = (index: number) => {
@@ -104,10 +145,26 @@ const StepTwo: React.FC<StepTwoProps> = ({
     setNewResort(resortToEdit);
     const updatedResorts = resorts.filter((_, i) => i !== index);
     setResorts(updatedResorts);
+    // Save edited resort to local storage
+    if (typeof window !== "undefined") {
+      localStorage.setItem("stepTwoResort", JSON.stringify(resortToEdit));
+    }
   };
 
   const getDocumentByType = (type: "license" | "registration") => {
-    return newResort.documents?.find((doc:any) => doc.type === type);
+    return newResort.documents?.find((doc) => doc.type === type);
+  };
+
+  // Clear local storage on form submission
+  const handleSubmitWithClear = () => {
+    if (resorts && resorts.length === 0) {
+      toast.error("Add Resorts first");
+      return;
+    }
+    handleSubmit();
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("stepTwoResort");
+    }
   };
 
   return (
@@ -225,7 +282,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
           </button>
           <button
             type="button"
-            onClick={handleSubmit}
+            onClick={handleSubmitWithClear}
             className="btn btn-success"
           >
             Submit

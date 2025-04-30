@@ -3,7 +3,7 @@ import User from "../models/User.js";
 import { getResetPasswordTemplate } from "../utils/emailTemplate.js";
 import ErrorHandler from "../utils/errorHandler.js";
 import sendEmail from "../utils/sendEmail.js";
-import sendTokens from "../utils/sendTokens.js";
+import sendTokens from "../utils/sendToken.js";
 import crypto from "crypto";
 import { delete_file, upload_file } from "../utils/cloudinary.js";
 

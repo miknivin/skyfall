@@ -12,12 +12,18 @@ import socialImg3 from "@/assets/img/inner-page/contact/soacial-3.png";
 import { useRegisterMutation } from "@/redux/api/authApi";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 interface FormData {
   fullName: string;
   email: string;
   phone: string;
   password: string;
+}
+
+interface SignUpFormProps {
+  onSuccess?: () => void;
+  onClose?: () => void;
 }
 
 const schema = yup.object().shape({
@@ -33,7 +39,7 @@ const schema = yup.object().shape({
     .required("Password is required"),
 });
 
-const SignUpForm = () => {
+const SignUpForm = ({ onSuccess, onClose }: SignUpFormProps) => {
   const router = useRouter();
   const [registerUser, { isLoading, isError, error }] = useRegisterMutation();
   const searchParams = useSearchParams();
@@ -54,15 +60,26 @@ const SignUpForm = () => {
         email: data.email,
         password: data.password,
       }).unwrap();
-      console.log("Register success:", res);
+
+      toast.success("Registration successful!");
+
+      if (onClose) {
+        onClose();
+      }
+
+      if (onSuccess) {
+        onSuccess();
+      }
+
       const proceedtopp = searchParams?.get("proceedtopp") || undefined;
       if (proceedtopp === "proceed") {
         router.push("/partner-program");
       }
+
       reset();
     } catch (err: any) {
       console.error("Register failed:", err);
-      alert(err.data.message);
+      toast.error(err.data.message || "Registration failed");
     }
   });
 
