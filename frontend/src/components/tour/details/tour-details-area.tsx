@@ -14,12 +14,42 @@ import {
   WiFiSvg,
   DollarSvg,
 } from "@/components/svg";
+import { useGetResortByIdQuery } from "@/redux/api/resortApi";
 
 interface TourDetailsProps {
-  resort: IResort;
+  id: string;
 }
 
-const TourDetailsArea = ({ resort }: TourDetailsProps) => {
+const TourDetailsArea = ({ id }: TourDetailsProps) => {
+  const { data, isLoading, isError, error } = useGetResortByIdQuery(id);
+  const resort: IResort | undefined = data?.data;
+
+  if (isLoading) {
+    return (
+      <div className="it-discover-area pt-120 pb-120 p-relative">
+        <div className="container">
+          <div className="text-center pt-100">Loading...</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (isError || !resort) {
+    return (
+      <div className="it-discover-area pt-120 pb-120 p-relative">
+        <div className="container">
+          <div className="text-center pt-100">
+            {isError
+              ? `Error: ${
+                  (error as any)?.data?.message || "Failed to fetch resort"
+                }`
+              : `Resort not found with id: ${id}`}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const minPrice =
     resort.rooms.length > 0
       ? Math.min(...resort.rooms.map((room) => room.pricePerNight))

@@ -9,14 +9,14 @@ const UserSchema = new Schema(
     email: {
       type: String,
       required: true,
-      unique: [true,"Email already exists"],
+      unique: [true, "Email already exists"],
       lowercase: true,
       trim: true,
     },
     password: {
       type: String,
-      required:true,
-      select:false
+      required: true,
+      select: false,
     },
     name: {
       type: String,
@@ -31,7 +31,7 @@ const UserSchema = new Schema(
     resorts: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Resort", 
+        ref: "Resort",
       },
     ],
     profile: {
@@ -58,7 +58,7 @@ const UserSchema = new Schema(
     },
   },
   {
-    timestamps: true, 
+    timestamps: true,
   }
 );
 
@@ -79,10 +79,9 @@ UserSchema.methods.getJwtToken = function () {
   });
 };
 
-UserSchema.methods.comparePassword = async function (enteredPassword:any) {
+UserSchema.methods.comparePassword = async function (enteredPassword: any) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
-
 
 UserSchema.methods.getResetPasswordToken = function () {
   const resetToken = crypto.randomBytes(20).toString("hex");
@@ -96,6 +95,5 @@ UserSchema.methods.getResetPasswordToken = function () {
   return resetToken;
 };
 
-UserSchema.index({ email: 1 });
 const User = mongoose.models.User || mongoose.model("User", UserSchema);
-export default User
+export default User;

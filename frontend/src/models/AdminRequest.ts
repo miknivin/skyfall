@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
@@ -6,13 +6,13 @@ const AdminRequestSchema = new Schema(
   {
     userId: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
       required: true,
     },
     status: {
       type: String,
-      enum: ['pending', 'approved', 'rejected'],
-      default: 'pending',
+      enum: ["pending", "approved", "rejected"],
+      default: "pending",
     },
     requestDetails: {
       motivation: {
@@ -29,7 +29,7 @@ const AdminRequestSchema = new Schema(
     },
     reviewedBy: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
     },
   },
   {
@@ -39,5 +39,5 @@ const AdminRequestSchema = new Schema(
 
 AdminRequestSchema.index({ userId: 1, status: 1 });
 
-
-export default mongoose.models.AdminRequest || mongoose.model('AdminRequest', AdminRequestSchema);
+export default mongoose.models.AdminRequest ||
+  mongoose.model("AdminRequest", AdminRequestSchema);
