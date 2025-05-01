@@ -1,8 +1,8 @@
-import { Metadata } from 'next';
-import CompareMain from '@/pages/compare/compare';
+import { Metadata } from "next";
+import CompareMain from "@/pages/compare/compare";
 
 export const metadata: Metadata = {
-  title: 'Travello - Compare Page',
+  title: "Skyfall - Compare Page",
 };
 
 const ComparePage = () => {

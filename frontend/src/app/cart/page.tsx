@@ -1,8 +1,8 @@
-import { Metadata } from 'next';
-import CartMain from '@/pages/cart/cart';
+import { Metadata } from "next";
+import CartMain from "@/pages/cart/cart";
 
 export const metadata: Metadata = {
-  title: 'Travello - Cart Page',
+  title: "Skyfall - Cart Page",
 };
 
 const CartPage = () => {

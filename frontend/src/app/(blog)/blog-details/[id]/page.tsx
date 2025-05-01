@@ -1,9 +1,9 @@
-import { Metadata } from 'next';
-import { blogData } from '@/data/blog-data';
-import BlogDetailsMain from '@/pages/blog-details/blog-details';
+import { Metadata } from "next";
+import { blogData } from "@/data/blog-data";
+import BlogDetailsMain from "@/pages/blog-details/blog-details";
 
 export const metadata: Metadata = {
-  title: 'Travello - Blog Details Page',
+  title: "Skyfall - Blog Details Page",
 };
 
 export default function BlogDetailsPage({

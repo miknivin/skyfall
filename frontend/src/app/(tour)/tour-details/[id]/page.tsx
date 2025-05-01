@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import TourDetailsMain from "@/pages/tour-details/tour-details";
 
 export const metadata: Metadata = {
-  title: "Travello - Resort Details Page",
+  title: "Skyfall - Resort Details Page",
 };
 
 export default function TourDetailsPage({

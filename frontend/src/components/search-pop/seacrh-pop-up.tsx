@@ -1,8 +1,8 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import { CLoseSvg, SearchSvgTwo } from '../svg';
+import Link from "next/link";
+import Image from "next/image";
+import { CLoseSvg, SearchSvgTwo } from "../svg";
 
-import LogoWhite from '@/assets/img/logo/white-logo.png';
+import LogoWhite from "@/assets/img/logo/white-logo.png";
 
 // Props type
 type SearchProps = {
@@ -13,7 +13,7 @@ type SearchProps = {
 const SearchPopUp = ({ isPopUpOpen, setIsPopUpOpen }: SearchProps) => {
   return (
     <div
-      className={isPopUpOpen ? 'search__popup search-opened' : 'search__popup'}
+      className={isPopUpOpen ? "search__popup search-opened" : "search__popup"}
     >
       <div className="container">
         <div className="row">
@@ -24,7 +24,7 @@ const SearchPopUp = ({ isPopUpOpen, setIsPopUpOpen }: SearchProps) => {
                   <Link href="/">
                     <Image
                       src={LogoWhite}
-                      alt="Travello"
+                      alt="Skyfall"
                       width={129}
                       height={40}
                     />

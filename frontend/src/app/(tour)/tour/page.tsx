@@ -1,8 +1,8 @@
-import { Metadata } from 'next';
-import TourMain from '@/pages/tour/tour';
+import { Metadata } from "next";
+import TourMain from "@/pages/tour/tour";
 
 export const metadata: Metadata = {
-  title: 'Travello - Tour Page',
+  title: "Skyfall - Tour Page",
 };
 
 const TourPage = () => {

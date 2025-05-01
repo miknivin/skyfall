@@ -1,8 +1,8 @@
-import { Metadata } from 'next';
-import SignInMain from '@/pages/sign-in/sign-in';
+import { Metadata } from "next";
+import SignInMain from "@/pages/sign-in/sign-in";
 
 export const metadata: Metadata = {
-  title: 'Travello - SignIn Page',
+  title: "Skyfall - SignIn Page",
 };
 
 const SignInPage = () => {

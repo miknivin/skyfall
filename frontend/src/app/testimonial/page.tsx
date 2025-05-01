@@ -1,8 +1,8 @@
-import { Metadata } from 'next';
-import TestimonialMain from '@/pages/testimonial/testimonial';
+import { Metadata } from "next";
+import TestimonialMain from "@/pages/testimonial/testimonial";
 
 export const metadata: Metadata = {
-  title: 'Travello - Testimonial Page',
+  title: "Skyfall - Testimonial Page",
 };
 
 const TestimonialPage = () => {

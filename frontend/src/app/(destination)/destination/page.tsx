@@ -1,8 +1,8 @@
-import { Metadata } from 'next';
-import DestinationMain from '@/pages/destination/destination';
+import { Metadata } from "next";
+import DestinationMain from "@/pages/destination/destination";
 
 export const metadata: Metadata = {
-  title: 'Travello - Destination Page',
+  title: "Skyfall - Destination Page",
 };
 
 const DestinationPage = () => {

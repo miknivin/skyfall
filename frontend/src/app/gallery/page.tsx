@@ -1,8 +1,8 @@
-import { Metadata } from 'next';
-import GalleryMain from '@/pages/galley/gallery';
+import { Metadata } from "next";
+import GalleryMain from "@/pages/galley/gallery";
 
 export const metadata: Metadata = {
-  title: 'Travello - Gallery Page',
+  title: "Skyfall - Gallery Page",
 };
 
 const GalleryPage = () => {

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import PartnerMain from "@/pages/partner-program/partner";
 
 export const metadata: Metadata = {
-  title: "Travello - Partner Page",
+  title: "Skyfall - Partner Page",
 };
 
 const PartnerPage = () => {

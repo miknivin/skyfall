@@ -1,8 +1,8 @@
-import { Metadata } from 'next';
-import WishlistMain from '@/pages/wishlist/wishlist';
+import { Metadata } from "next";
+import WishlistMain from "@/pages/wishlist/wishlist";
 
 export const metadata: Metadata = {
-  title: 'Travello - Wishlist Page',
+  title: "Skyfall - Wishlist Page",
 };
 
 const WishlistPage = () => {

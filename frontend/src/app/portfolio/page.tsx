@@ -1,8 +1,8 @@
-import { Metadata } from 'next';
-import PortfolioMain from '@/pages/portfolio/portfolio';
+import { Metadata } from "next";
+import PortfolioMain from "@/pages/portfolio/portfolio";
 
 export const metadata: Metadata = {
-  title: 'Travello - Portfolio Page',
+  title: "Skyfall - Portfolio Page",
 };
 
 const PortfolioPage = () => {

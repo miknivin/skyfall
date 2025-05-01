@@ -1,8 +1,8 @@
-import { Metadata } from 'next';
-import BlogMain from '@/pages/blog/blog';
+import { Metadata } from "next";
+import BlogMain from "@/pages/blog/blog";
 
 export const metadata: Metadata = {
-  title: 'Travello - Blog Page',
+  title: "Skyfall - Blog Page",
 };
 
 const BlogPage = () => {

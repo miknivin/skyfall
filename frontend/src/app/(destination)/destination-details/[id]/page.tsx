@@ -1,9 +1,9 @@
-import { Metadata } from 'next';
-import { destinationData } from '@/data/destination-data';
-import DestinationDetailsMain from '@/pages/destination-details/destination-details';
+import { Metadata } from "next";
+import { destinationData } from "@/data/destination-data";
+import DestinationDetailsMain from "@/pages/destination-details/destination-details";
 
 export const metadata: Metadata = {
-  title: 'Travello - Destination Details Page',
+  title: "Skyfall - Destination Details Page",
 };
 
 export default function destinationDetailsPage({

@@ -1,8 +1,8 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import MenuItems from '@/layouts/headers/menu-items';
+import Image from "next/image";
+import Link from "next/link";
+import MenuItems from "@/layouts/headers/menu-items";
 
-import Logo from '@/assets/img/logo/logo.png';
+import Logo from "@/assets/img/logo/logo.png";
 
 // prop type
 type IProps = {
@@ -16,7 +16,7 @@ const OffCanvas = ({ isOffCanvasOpen, setIsOffCanvasOpen }: IProps) => {
   return (
     <>
       <div className="it-offcanvas-area">
-        <div className={isOffCanvasOpen ? 'itoffcanvas opened' : 'itoffcanvas'}>
+        <div className={isOffCanvasOpen ? "itoffcanvas opened" : "itoffcanvas"}>
           <div className="itoffcanvas__close-btn">
             <button
               className="close-btn"
@@ -27,7 +27,7 @@ const OffCanvas = ({ isOffCanvasOpen, setIsOffCanvasOpen }: IProps) => {
           </div>
           <div className="itoffcanvas__logo">
             <Link href="/">
-              <Image src={Logo} alt="Travello" width={129} height={40} />
+              <Image src={Logo} alt="Skyfall" width={129} height={40} />
             </Link>
           </div>
           <div className="itoffcanvas__text">
@@ -75,7 +75,7 @@ const OffCanvas = ({ isOffCanvasOpen, setIsOffCanvasOpen }: IProps) => {
                   href="htits://www.google.com/maps/@37.4801311,22.8928877,3z"
                   target="_blank"
                 >
-                  Riverside 255, San Francisco, USA{' '}
+                  Riverside 255, San Francisco, USA{" "}
                 </a>
               </div>
             </div>

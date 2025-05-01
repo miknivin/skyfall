@@ -1,8 +1,8 @@
-import { Metadata } from 'next';
-import EventGridMain from '@/pages/event/event-grid';
+import { Metadata } from "next";
+import EventGridMain from "@/pages/event/event-grid";
 
 export const metadata: Metadata = {
-  title: 'Travello - Event Page',
+  title: "Skyfall - Event Page",
 };
 
 const EventGridPage = () => {

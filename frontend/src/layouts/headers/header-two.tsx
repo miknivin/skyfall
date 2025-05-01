@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import Image, { StaticImageData } from 'next/image';
-import Link from 'next/link';
-import HeaderTop from './header-top';
-import MenuItems from './menu-items';
-import OffCanvas from '@/components/offcanvas/offcanvas';
-import SearchPopUp from '@/components/search-pop/seacrh-pop-up';
-import { CartSvg, SearchSvg } from '@/components/svg';
+import { useEffect, useState } from "react";
+import Image, { StaticImageData } from "next/image";
+import Link from "next/link";
+import HeaderTop from "./header-top";
+import MenuItems from "./menu-items";
+import OffCanvas from "@/components/offcanvas/offcanvas";
+import SearchPopUp from "@/components/search-pop/seacrh-pop-up";
+import { CartSvg, SearchSvg } from "@/components/svg";
 
-import Logo from '@/assets/img/logo/logo.png';
+import Logo from "@/assets/img/logo/logo.png";
 
 interface HeaderProps {
   headerLogo?: StaticImageData;
@@ -32,8 +32,8 @@ const HeaderTwo = ({ headerLogo }: HeaderProps) => {
 
     toggleVisibility();
 
-    window.addEventListener('scroll', toggleVisibility);
-    return () => window.removeEventListener('scroll', toggleVisibility);
+    window.addEventListener("scroll", toggleVisibility);
+    return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
 
   return (
@@ -51,8 +51,8 @@ const HeaderTwo = ({ headerLogo }: HeaderProps) => {
         <div
           className={
             isVisible
-              ? 'it-header-bottom-area header-sticky'
-              : 'it-header-bottom-area'
+              ? "it-header-bottom-area header-sticky"
+              : "it-header-bottom-area"
           }
         >
           <div className="container">
@@ -63,7 +63,7 @@ const HeaderTwo = ({ headerLogo }: HeaderProps) => {
                     <Link href="/">
                       <Image
                         src={headerLogo ? headerLogo : Logo}
-                        alt="Travello"
+                        alt="Skyfall"
                         width={129}
                         height={40}
                       />

@@ -1,8 +1,8 @@
-import { Metadata } from 'next';
-import BookingCheckoutMain from '@/pages/booking-checkout/booking-checkout';
+import { Metadata } from "next";
+import BookingCheckoutMain from "@/pages/booking-checkout/booking-checkout";
 
 export const metadata: Metadata = {
-  title: 'Travello - Booking Checkout Page',
+  title: "Skyfall - Booking Checkout Page",
 };
 
 const BookingCheckoutPage = () => {

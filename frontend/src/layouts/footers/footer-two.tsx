@@ -1,15 +1,15 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 
-import shapeImg1 from '@/assets/img/home-4/footer/map.png';
-import shapeImg2 from '@/assets/img/home-1/footer/right-tree.png';
-import Logo from '@/assets/img/logo/logo.png';
-import img1 from '@/assets/img/footer/thumb-4-1.png';
-import img2 from '@/assets/img/footer/thumb-4-2.png';
-import img3 from '@/assets/img/footer/thumb-4-3.png';
-import img4 from '@/assets/img/footer/thumb-4-4.png';
-import img5 from '@/assets/img/footer/thumb-4-5.png';
-import img6 from '@/assets/img/footer/thumb-4-6.png';
+import shapeImg1 from "@/assets/img/home-4/footer/map.png";
+import shapeImg2 from "@/assets/img/home-1/footer/right-tree.png";
+import Logo from "@/assets/img/logo/logo.png";
+import img1 from "@/assets/img/footer/thumb-4-1.png";
+import img2 from "@/assets/img/footer/thumb-4-2.png";
+import img3 from "@/assets/img/footer/thumb-4-3.png";
+import img4 from "@/assets/img/footer/thumb-4-4.png";
+import img5 from "@/assets/img/footer/thumb-4-5.png";
+import img6 from "@/assets/img/footer/thumb-4-6.png";
 
 const galleryData = [img1, img2, img3, img4, img5, img6];
 
@@ -33,14 +33,14 @@ const FooterTwo = () => {
               <div className="it-footer-widget footer-col-1 mb-60">
                 <div className="it-footer-logo mb-35">
                   <Link href="/">
-                    <Image src={Logo} alt="Travello" width={129} height={40} />
+                    <Image src={Logo} alt="Skyfall" width={129} height={40} />
                   </Link>
                 </div>
                 <div className="it-footer-content">
                   <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                     doeiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut{' '}
+                    aliqua. Ut{" "}
                   </p>
                   <div className="it-footer-social">
                     <a href="#">
@@ -132,7 +132,7 @@ const FooterTwo = () => {
                             alt="Footer Img"
                             width={80}
                             height={80}
-                            style={{ height: 'auto' }}
+                            style={{ height: "auto" }}
                           />
                         </div>
                       </div>
@@ -152,10 +152,10 @@ const FooterTwo = () => {
               <div className="col-xl-6 col-lg-5">
                 <div className="it-copyright-text text-center text-lg-start">
                   <p>
-                    Copyright © 2024{' '}
+                    Copyright © 2024{" "}
                     <span>
-                      <a href="">Travello</a>
-                    </span>{' '}
+                      <a href="">Skyfall</a>
+                    </span>{" "}
                     All Right Reserved
                   </p>
                 </div>

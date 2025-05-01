@@ -1,9 +1,9 @@
-import { Metadata } from 'next';
-import { productData } from '@/data/product-data';
-import ShopDetailsMain from '@/pages/shop-details/shop-details';
+import { Metadata } from "next";
+import { productData } from "@/data/product-data";
+import ShopDetailsMain from "@/pages/shop-details/shop-details";
 
 export const metadata: Metadata = {
-  title: 'Travello - Shop Details Page',
+  title: "Skyfall - Shop Details Page",
 };
 
 export default function ShopDetailsPage({

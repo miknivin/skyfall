@@ -1,9 +1,9 @@
-import { Metadata } from 'next';
-import { eventData } from '@/data/event-data';
-import EventDetailsMain from '@/pages/event-details/event-details';
+import { Metadata } from "next";
+import { eventData } from "@/data/event-data";
+import EventDetailsMain from "@/pages/event-details/event-details";
 
 export const metadata: Metadata = {
-  title: 'Travello - Event Details Page',
+  title: "Skyfall - Event Details Page",
 };
 
 export default function EventDetailsPage({
