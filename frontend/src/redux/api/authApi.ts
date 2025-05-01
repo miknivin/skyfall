@@ -49,6 +49,8 @@ export const authApi = createApi({
           Cookies.set("token", data.token, {
             expires: 7,
             path: "/",
+            secure: process.env.NODE_ENV === "production",
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
             httpOnly: true,
           });
           dispatch(setUser(data.user));
@@ -71,6 +73,8 @@ export const authApi = createApi({
           Cookies.set("token", data.token, {
             expires: 7,
             path: "/",
+            secure: process.env.NODE_ENV === "production",
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
             httpOnly: true,
           });
           dispatch(setUser(data.user));
@@ -93,6 +97,8 @@ export const authApi = createApi({
           Cookies.set("token", data.token, {
             expires: 7,
             path: "/",
+            secure: process.env.NODE_ENV === "production",
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
             httpOnly: true,
           });
           dispatch(setUser(data.user));
