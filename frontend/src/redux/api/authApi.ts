@@ -51,7 +51,6 @@ export const authApi = createApi({
             path: "/",
             secure: process.env.NODE_ENV === "production",
             sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-            httpOnly: true,
           });
           dispatch(setUser(data.user));
           dispatch(setIsAuthenticated(true));
@@ -75,7 +74,6 @@ export const authApi = createApi({
             path: "/",
             secure: process.env.NODE_ENV === "production",
             sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-            httpOnly: true,
           });
           dispatch(setUser(data.user));
           dispatch(setIsAuthenticated(true));
@@ -99,7 +97,6 @@ export const authApi = createApi({
             path: "/",
             secure: process.env.NODE_ENV === "production",
             sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-            httpOnly: true,
           });
           dispatch(setUser(data.user));
           dispatch(setIsAuthenticated(true));
