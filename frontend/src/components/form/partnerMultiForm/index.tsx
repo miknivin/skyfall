@@ -52,6 +52,7 @@ const PartnerMultiForm: React.FC = () => {
         },
       });
       localStorage.removeItem("stepOneInputs");
+      toast.success("Request send successfully. Await confirmation");
       setStep(1); // Reset to step 1 or redirect as needed
     } catch (err: any) {
       console.error("Submission failed:", err);
