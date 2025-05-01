@@ -9,7 +9,11 @@ interface TourItemProps {
 }
 
 const TourItemOne = ({ resort }: TourItemProps) => {
-  const minPrice = Math.min(...resort.rooms.map((room) => room.pricePerNight));
+  const minPrice =
+    resort.rooms.length > 0 &&
+    resort.rooms.every((room) => typeof room.pricePerNight === "number")
+      ? Math.min(...resort.rooms.map((room) => room.pricePerNight))
+      : undefined;
 
   return (
     <div className="it-featured-item p-relative">
@@ -35,9 +39,13 @@ const TourItemOne = ({ resort }: TourItemProps) => {
         </h3>
         <div className="it-featured-price d-flex align-items-center">
           <i className="fa-regular fa-circle-dollar"></i>
-          <p>
-            From <span>₹{minPrice.toFixed(2)}</span>
-          </p>
+          {minPrice !== undefined ? (
+            <p>
+              From <span>₹{minPrice.toFixed(2)}</span>
+            </p>
+          ) : (
+            <p>0 rooms</p>
+          )}
         </div>
       </div>
     </div>
