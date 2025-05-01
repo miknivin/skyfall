@@ -35,6 +35,7 @@ export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `${process.env.NEXT_PUBLIC_API_URL}/api/v1`,
+    credentials: "include",
   }), // Update to Express URL later (e.g., process.env.NEXT_PUBLIC_API_URL)
   endpoints: (builder) => ({
     register: builder.mutation<AuthResponse, RegisterRequest>({
