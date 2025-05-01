@@ -69,12 +69,12 @@ export const authApi = createApi({
       async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          Cookies.set("token", data.token, {
-            expires: 7,
-            path: "/",
-            secure: process.env.NODE_ENV === "production",
-            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-          });
+          // Cookies.set("token", data.token, {
+          //   expires: 7,
+          //   path: "/",
+          //   secure: process.env.NODE_ENV === "production",
+          //   sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+          // });
           dispatch(setUser(data.user));
           dispatch(setIsAuthenticated(true));
           await dispatch(userApi.endpoints.getMe.initiate());
@@ -92,12 +92,12 @@ export const authApi = createApi({
       async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          Cookies.set("token", data.token, {
-            expires: 7,
-            path: "/",
-            secure: process.env.NODE_ENV === "production",
-            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-          });
+          // Cookies.set("token", data.token, {
+          //   expires: 7,
+          //   path: "/",
+          //   secure: process.env.NODE_ENV === "production",
+          //   sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+          // });
           dispatch(setUser(data.user));
           dispatch(setIsAuthenticated(true));
           await dispatch(userApi.endpoints.getMe.initiate());
