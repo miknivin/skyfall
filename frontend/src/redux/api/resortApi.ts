@@ -19,6 +19,7 @@ export const resortApi = createApi({
   reducerPath: "resortApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `${process.env.NEXT_PUBLIC_API_URL}/api/v1`,
+    credentials: "include",
   }),
   endpoints: (builder) => ({
     getAllResorts: builder.query<GetAllResortsResponse, void>({
@@ -35,6 +36,5 @@ export const resortApi = createApi({
     }),
   }),
 });
-
 
 export const { useGetAllResortsQuery, useGetResortByIdQuery } = resortApi;
