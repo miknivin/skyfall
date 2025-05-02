@@ -164,7 +164,7 @@ const HeaderOne = ({ hasTopBar, hasTopBarTwo, headerClass }: HeaderProps) => {
                       style={{ marginRight: "15px" }}
                       className="d-none d-md-block"
                     >
-                      {isAuthenticated && user?.role === "user" ? (
+                      {isAuthenticated ? (
                         <div className="dropdown">
                           <a
                             href="#"
@@ -215,6 +215,13 @@ const HeaderOne = ({ hasTopBar, hasTopBarTwo, headerClass }: HeaderProps) => {
                         >
                           <span className="visually-hidden">Loading...</span>
                         </div>
+                      ) : isAuthenticated && user?.role === "admin" ? (
+                        <button
+                          onClick={() => (window.location.href = "/dashboard")}
+                          className="it-btn-primary"
+                        >
+                          Dashboard
+                        </button>
                       ) : (
                         <button
                           onClick={handleClick}
