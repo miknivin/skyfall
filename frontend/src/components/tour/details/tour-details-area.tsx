@@ -4,7 +4,7 @@ import Image from "next/image";
 import TourDetailsFaq from "@/components/tour/details/tour-details-faq";
 import ReviewBox from "./review-box";
 import DetailsSidebar from "./details-sidebar";
-import { IResort } from "@/types/resort";
+import { IResort, IRoom } from "@/types/resort";
 import {
   AirplaneSvg,
   CarSvg,
@@ -15,6 +15,7 @@ import {
   DollarSvg,
 } from "@/components/svg";
 import { useGetResortByIdQuery } from "@/redux/api/resortApi";
+import RoomItem from "../tour-item/room-item";
 
 interface TourDetailsProps {
   id: string;
@@ -75,14 +76,17 @@ const TourDetailsArea = ({ id }: TourDetailsProps) => {
                   <div className="it-discover-cat-wrap d-flex align-items-center">
                     <div className="it-discover-cat-item d-flex">
                       <div className="it-discover-cat-icon">
-                        <span>
-                          <DollarSvg />
+                        <span
+                          style={{ border: "2px solid" }}
+                          className="d-flex justify-content-center p-2 rounded-circle align-items-center"
+                        >
+                          <i className="fa-solid fa-indian-rupee-sign"></i>
                         </span>
                       </div>
                       <div className="it-discover-cat-text">
                         <p>
                           From <br />
-                          <span>${minPrice.toFixed(2)}</span>
+                          <span>₹{minPrice.toFixed(2)}</span>
                         </p>
                       </div>
                     </div>
@@ -228,10 +232,22 @@ const TourDetailsArea = ({ id }: TourDetailsProps) => {
                 referrerPolicy="no-referrer-when-downgrade"
               ></iframe>
             </div>
-            <ReviewBox />
           </div>
           <div className="col-xl-4 col-lg-4">
             <DetailsSidebar resort={resort} />
+          </div>
+          <div>
+            <div className="row g-4">
+              {resort?.rooms?.map((room: IRoom) => (
+                <div
+                  key={`${room.roomType}-${room._id || room.roomType}`}
+                  className="col-12 col-md-6 col-xl-4"
+                >
+                  <RoomItem room={room} resortId={id} />
+                </div>
+              ))}
+            </div>
+            <ReviewBox />
           </div>
         </div>
       </div>

@@ -1,10 +1,12 @@
 import { Types } from "mongoose";
 
 export interface IRoom {
+  _id?: string;
   roomType: string;
   capacity: number;
   pricePerNight: number;
   roomCount: number;
+  images?: string[];
 }
 
 export interface IBookingAvailability {
@@ -16,7 +18,7 @@ export interface IBookingAvailability {
 }
 
 export interface IResort {
-  _id?: Types.ObjectId; 
+  _id?: Types.ObjectId;
   adminId: Types.ObjectId;
   name: string;
   location: string;

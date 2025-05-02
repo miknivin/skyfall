@@ -38,7 +38,8 @@ const TourItemOne = ({ resort }: TourItemProps) => {
           </Link>
         </h3>
         <div className="it-featured-price d-flex align-items-center">
-          <i className="fa-regular fa-circle-dollar"></i>
+          <i className="fa-solid fa-bed" />
+
           {minPrice !== undefined ? (
             <p>
               From <span>₹{minPrice.toFixed(2)}</span>
