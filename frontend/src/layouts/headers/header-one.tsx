@@ -217,7 +217,10 @@ const HeaderOne = ({ hasTopBar, hasTopBarTwo, headerClass }: HeaderProps) => {
                         </div>
                       ) : isAuthenticated && user?.role === "admin" ? (
                         <button
-                          onClick={() => (window.location.href = "/dashboard")}
+                          onClick={() =>
+                            (window.location.href =
+                              "https://skyfall-admin.onrender.com")
+                          }
                           className="it-btn-primary"
                         >
                           Dashboard
