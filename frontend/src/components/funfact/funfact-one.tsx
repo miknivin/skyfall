@@ -1,30 +1,30 @@
-import Counter from './counter-item/counter-item';
-import { FunFactStar } from '../svg';
+import Counter from "./counter-item/counter-item";
+import { FunFactStar } from "../svg";
 
 const counterData = [
   {
     id: 1,
     countNum: 835,
-    countSubtext: '+',
-    countTitle: 'Total Donations',
+    countSubtext: "+",
+    countTitle: "Total Resorts",
   },
   {
     id: 2,
     countNum: 6246,
-    countSubtext: '+',
-    countTitle: 'Campaigns Closed',
+    countSubtext: "+",
+    countTitle: "Rooms",
   },
   {
     id: 3,
     countNum: 2000,
-    countSubtext: '+',
-    countTitle: 'Happy People',
+    countSubtext: "+",
+    countTitle: "Happy People",
   },
   {
     id: 4,
     countNum: 600,
-    countSubtext: '+',
-    countTitle: 'Our Volunteers',
+    countSubtext: "+",
+    countTitle: "Happy Events",
   },
 ];
 

@@ -4,7 +4,7 @@ import Image from "next/image";
 import TourDetailsFaq from "@/components/tour/details/tour-details-faq";
 import ReviewBox from "./review-box";
 import DetailsSidebar from "./details-sidebar";
-import { IResort, IRoom } from "@/types/resort";
+import { IEventSpace, IResort, IRoom } from "@/types/resort";
 import {
   AirplaneSvg,
   CarSvg,
@@ -16,6 +16,7 @@ import {
 } from "@/components/svg";
 import { useGetResortByIdQuery } from "@/redux/api/resortApi";
 import RoomItem from "../tour-item/room-item";
+import EventSpaceItem from "../tour-item/eventSpace-item";
 
 interface TourDetailsProps {
   id: string;
@@ -124,6 +125,12 @@ const TourDetailsArea = ({ id }: TourDetailsProps) => {
               <h3 className="it-discover-title">Resort Overview</h3>
               <p>{resort.description || "No description available."}</p>
             </div>
+          </div>
+          <div className="col-xl-4 col-lg-4">
+            <DetailsSidebar resort={resort} />
+          </div>
+          <div>
+            {/* before col-8  */}
             <h3 className="it-discover-title mb-25">Resort Amenities</h3>
             <div className="it-discover-tour-box mb-30">
               <ul>
@@ -225,19 +232,19 @@ const TourDetailsArea = ({ id }: TourDetailsProps) => {
             <h3 className="it-discover-title mb-35">Location</h3>
             <div className="it-discover-maps mb-35">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d121914.86196405679!2d-74.07886878452959!3d40.72084424392851!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbd!4v1713501285528!5m2!1sen!2sbd"
-                style={{ border: "0" }}
+                src={`https://www.google.com/maps?q=${encodeURIComponent(
+                  resort.location
+                )}&output=embed`}
+                style={{ border: "0", width: "100%", height: "450px" }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               ></iframe>
             </div>
-          </div>
-          <div className="col-xl-4 col-lg-4">
-            <DetailsSidebar resort={resort} />
-          </div>
-          <div>
             <div className="row g-4">
+              <div className="it-featured-title-box text-center">
+                <h3 className="it-section-title">Rooms</h3>
+              </div>
               {resort?.rooms?.map((room: IRoom) => (
                 <div
                   key={`${room.roomType}-${room._id || room.roomType}`}
@@ -247,7 +254,26 @@ const TourDetailsArea = ({ id }: TourDetailsProps) => {
                 </div>
               ))}
             </div>
-            <ReviewBox />
+            {/* events */}
+            <div>
+              <div className="row g-4">
+                <div className="it-featured-title-box text-center">
+                  <h3 className="it-section-title">Events</h3>
+                </div>
+                {resort?.eventSpaces?.map((eventSpace: IEventSpace) => (
+                  <div
+                    key={`${eventSpace.name}-${
+                      eventSpace?._id || eventSpace.name
+                    }`}
+                    className="col-12 col-md-6 col-xl-4"
+                  >
+                    <EventSpaceItem eventSpace={eventSpace} resortId={id} />
+                  </div>
+                ))}
+              </div>
+              <ReviewBox resortName={resort.name} />
+            </div>
+            <ReviewBox resortName={resort.name} />
           </div>
         </div>
       </div>

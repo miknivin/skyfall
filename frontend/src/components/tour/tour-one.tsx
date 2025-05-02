@@ -37,8 +37,8 @@ const TourOne = () => {
           <div className="row justify-content-center">
             <div className="col-xl-8">
               <div className="it-featured-title-box mb-75 text-center">
-                <span className="it-section-subtitle">Featured Tours</span>
-                <h3 className="it-section-title">Tours Packages</h3>
+                <span className="it-section-subtitle">Featured</span>
+                <h3 className="it-section-title">Resorts</h3>
               </div>
             </div>
           </div>

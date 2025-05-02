@@ -17,6 +17,23 @@ export interface IBookingAvailability {
   }[];
 }
 
+export interface IEventSpaceAvailability {
+  date: Date;
+  status: "available" | "booked" | "temporaryClosed";
+}
+
+export interface IEventSpace {
+  _id?: string;
+  name: string;
+  type: string;
+  capacity: number;
+  pricePerEvent: number;
+  description?: string;
+  images?: string[];
+  availability?: IEventSpaceAvailability[];
+  bookings?: Types.ObjectId[];
+}
+
 export interface IResort {
   _id?: Types.ObjectId;
   adminId: Types.ObjectId;
@@ -26,6 +43,7 @@ export interface IResort {
   images?: string[];
   status?: "pending" | "approved" | "rejected";
   rooms: IRoom[];
+  eventSpaces?: IEventSpace[];
   bookings?: Types.ObjectId[];
   availability?: IBookingAvailability[];
   createdAt?: Date;

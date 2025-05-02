@@ -1,17 +1,21 @@
-import Image from 'next/image';
-import { DislikeSvg, LikeSvg } from '@/components/svg';
-import TourReviewForm from '@/components/form/tour-review-form';
+import Image from "next/image";
+import { DislikeSvg, LikeSvg } from "@/components/svg";
+import TourReviewForm from "@/components/form/tour-review-form";
 
-import avatarImg1 from '@/assets/img/inner-page/discover/client-1-1.jpg';
-import avatarImg2 from '@/assets/img/inner-page/discover/client-1-2.jpg';
-import avatarImg3 from '@/assets/img/inner-page/discover/client-1-3.jpg';
+import avatarImg1 from "@/assets/img/inner-page/discover/client-1-1.jpg";
+import avatarImg2 from "@/assets/img/inner-page/discover/client-1-2.jpg";
+import avatarImg3 from "@/assets/img/inner-page/discover/client-1-3.jpg";
+
+interface ReviewProps {
+  resortName: string;
+}
 
 const clientData = [
   {
     id: 1,
     avatar: avatarImg1,
-    author: 'Jenny Wilson',
-    publishedDate: 'March 8, 2020',
+    author: "Jenny Wilson",
+    publishedDate: "March 8, 2020",
     description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                     incididunt ut labore et dolore magna aliqua. At volutpat diam ut venenatis tellus
                     in metus. Sem et tortor consequat id porta. Et malesuada fames ac turpis egestas`,
@@ -19,8 +23,8 @@ const clientData = [
   {
     id: 2,
     avatar: avatarImg2,
-    author: 'Katy Perry',
-    publishedDate: 'January 21, 2022',
+    author: "Katy Perry",
+    publishedDate: "January 21, 2022",
     description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                     incididunt ut labore et dolore magna aliqua. At volutpat diam ut venenatis tellus
                     in metus. Sem et tortor consequat id porta. Et malesuada fames ac turpis egestas`,
@@ -28,19 +32,19 @@ const clientData = [
   {
     id: 3,
     avatar: avatarImg3,
-    author: 'Idhika Paul',
-    publishedDate: 'November 25, 2023',
+    author: "Idhika Paul",
+    publishedDate: "November 25, 2023",
     description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                     incididunt ut labore et dolore magna aliqua. At volutpat diam ut venenatis tellus
                     in metus. Sem et tortor consequat id porta. Et malesuada fames ac turpis egestas`,
   },
 ];
 
-const ReviewBox = () => {
+const ReviewBox = ({ resortName }: ReviewProps) => {
   return (
     <>
       <h3 className="it-discover-title mb-35">
-        {clientData.length} thoughts on “Discovery Island Kayak Tour”
+        {clientData.length} thoughts on “{resortName}”
       </h3>
       <div className="it-discover-client-wrap">
         {clientData.map((client) => (
@@ -52,7 +56,7 @@ const ReviewBox = () => {
                   alt={client.author}
                   width={80}
                   height={80}
-                  style={{ height: 'auto' }}
+                  style={{ height: "auto" }}
                 />
               </div>
               <div className="it-discover-client-content">

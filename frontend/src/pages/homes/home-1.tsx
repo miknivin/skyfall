@@ -28,13 +28,13 @@ const HomeMain = () => {
 
         <FunFactOne />
 
-        <ChooseOne />
+        {/* <ChooseOne /> */}
 
         <OfferOne />
 
         <TestimonialOne />
 
-        <ShopOne />
+        {/* <ShopOne /> */}
 
         <BlogOne />
       </main>

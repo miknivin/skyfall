@@ -21,15 +21,34 @@ const ResortSchema = new Schema(
     description: {
       type: String,
     },
+    documents: [
+      {
+        type: {
+          type: String,
+          required: [true, "Document type is required"],
+          enum: ["license", "registration"],
+        },
+        name: {
+          type: String,
+          required: [true, "Document name is required"],
+          trim: true,
+        },
+        url: {
+          type: String,
+          required: [true, "Document URL is required"],
+          trim: true,
+        },
+      },
+    ],
     images: [
       {
-        type: String, // URLs to photos (e.g., AWS S3)
+        type: String,
       },
     ],
     status: {
       type: String,
       enum: ["pending", "approved", "rejected"],
-      default: "pending", // Super Admin must approve for listing
+      default: "pending",
     },
     rooms: [
       {
@@ -45,6 +64,14 @@ const ResortSchema = new Schema(
           type: Number,
           required: true,
         },
+        description: {
+          type: String,
+        },
+        images: [
+          {
+            type: String,
+          },
+        ],
         roomCount: {
           type: Number, // Number of rooms of this type
           required: true,
@@ -71,8 +98,57 @@ const ResortSchema = new Schema(
         ],
       },
     ],
+    eventSpaces: [
+      {
+        name: {
+          type: String, // e.g., "Grand Ballroom", "Garden Terrace"
+          required: [true, "Event space name is required"],
+          trim: true,
+        },
+        type: {
+          type: String, // e.g., "Banquet Hall", "Outdoor Garden"
+          required: [true, "Event space type is required"],
+        },
+        capacity: {
+          type: Number, // Max guests the space can accommodate
+          required: [true, "Capacity is required"],
+        },
+        pricePerEvent: {
+          type: Number, // Base price for booking the space
+          required: [true, "Price per event is required"],
+        },
+        description: {
+          type: String, // Additional details about the space
+        },
+        images: [
+          {
+            type: String, // URLs for images of the event space
+          },
+        ],
+        availability: [
+          {
+            date: {
+              type: Date,
+              required: true,
+            },
+            status: {
+              type: String,
+              enum: ["available", "booked", "temporaryClosed"],
+              default: "available",
+            },
+          },
+        ],
+        bookings: [
+          {
+            type: Schema.Types.ObjectId,
+            ref: "Booking", // Links to Booking collection for events
+          },
+        ],
+      },
+    ],
   },
   { timestamps: true }
 );
+
 const Resort = mongoose.model("Resort", ResortSchema);
-export default Resort
+export default Resort;
