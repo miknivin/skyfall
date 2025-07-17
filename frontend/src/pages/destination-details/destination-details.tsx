@@ -15,7 +15,7 @@ const DestinationDetailsMain = ({ destination }: DestinationDetailsProps) => {
       <HeaderTwo />
       <main>
         <Breadcrumb
-          title={destination?.name || destination.title}
+          title={destination?.name || "service"}
           subtitle="Destination"
         />
 

@@ -65,11 +65,13 @@ const DestinationDetailsArea = ({ destination }: IProps) => {
                           },
                         }}
                       >
-                        {destination.attractions.map((attraction:any, index:number) => (
-                          <SwiperSlide key={index}>
-                            <AttractionItem attraction={attraction} />
-                          </SwiperSlide>
-                        ))}
+                        {destination.attractions.map(
+                          (attraction: any, index: number) => (
+                            <SwiperSlide key={index}>
+                              <AttractionItem attraction={attraction} />
+                            </SwiperSlide>
+                          )
+                        )}
                       </Swiper>
                     </div>
                   </div>

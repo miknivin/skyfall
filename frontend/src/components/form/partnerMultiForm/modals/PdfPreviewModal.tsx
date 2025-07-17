@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import toast from "react-hot-toast";
@@ -97,7 +98,7 @@ const PDFPreviewModal: React.FC<PDFPreviewModalProps> = ({
             {isLoading ? (
               <p>Loading PDF...</p>
             ) : error ? (
-              <p>Error loading PDF: { "Unknown error"}</p>
+              <p>Error loading PDF: {"Unknown error"}</p>
             ) : pdfSource ? (
               <Document
                 file={pdfSource}

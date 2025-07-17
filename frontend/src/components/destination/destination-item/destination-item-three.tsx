@@ -15,7 +15,7 @@ const DestinationItemThree = ({ destination }: DestinationProps) => {
         <Link href="#">
           <Image
             src={destination.image}
-            alt={destination.title}
+            alt={destination?.title || "dasd"}
             width={370}
             height={243}
             style={{ height: 'auto' }}
