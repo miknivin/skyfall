@@ -1,3 +1,4 @@
+// StepTwo.tsx
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -5,6 +6,9 @@ import { Resort } from "@/types/admin-request";
 import PlacesAutocomplete from "@/components/utils/PlacesAPiAuto";
 import FileUploadDropzone from "./formInputs/FileUpload";
 import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/rootReducer";
+import PDFPreviewModal from "./modals/PdfPreviewModal";
 
 interface StepTwoProps {
   resorts: Resort[];
@@ -19,14 +23,12 @@ const StepTwo: React.FC<StepTwoProps> = ({
   handleBack,
   handleSubmit,
 }) => {
-  // Initialize newResort from local storage or default
   const getInitialResort = (): Resort => {
     if (typeof window !== "undefined") {
       const savedData = localStorage.getItem("stepTwoResort");
       if (savedData) {
         try {
           const parsedData: Resort = JSON.parse(savedData);
-          // Validate parsed data
           if (
             parsedData &&
             typeof parsedData.name === "string" &&
@@ -62,8 +64,19 @@ const StepTwo: React.FC<StepTwoProps> = ({
   };
 
   const [newResort, setNewResort] = useState<Resort>(getInitialResort());
+  const { isAuthenticated, user } = useSelector(
+    (state: RootState) => state.user
+  );
 
-  // Save newResort to local storage whenever it changes
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedDocument, setSelectedDocument] = useState<{
+    name: string;
+    url: string;
+    viewUrl?: string;
+    file?: File;
+    type: "license" | "registration";
+  } | null>(null);
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       localStorage.setItem("stepTwoResort", JSON.stringify(newResort));
@@ -84,13 +97,17 @@ const StepTwo: React.FC<StepTwoProps> = ({
     }));
   };
 
-  const handleFileUpload = (
-    document: { name: string; url: string },
+  const handleFileUpload: (
+    document: { name: string; url: string; file: File },
     documentType: "license" | "registration"
-  ) => {
+  ) => void = (document, documentType) => {
     const existingDocIndex =
       newResort.documents?.findIndex((doc) => doc.type === documentType) ?? -1;
-    const newDocument = { ...document, type: documentType };
+    const newDocument = {
+      name: document.name,
+      url: document.url, // This is now the original S3 URL
+      type: documentType,
+    };
 
     if (existingDocIndex >= 0) {
       setNewResort((prev) => ({
@@ -134,7 +151,6 @@ const StepTwo: React.FC<StepTwoProps> = ({
       description: "",
       documents: [],
     });
-    // Clear local storage after adding resort
     if (typeof window !== "undefined") {
       localStorage.removeItem("stepTwoResort");
     }
@@ -145,9 +161,16 @@ const StepTwo: React.FC<StepTwoProps> = ({
     setNewResort(resortToEdit);
     const updatedResorts = resorts.filter((_, i) => i !== index);
     setResorts(updatedResorts);
-    // Save edited resort to local storage
     if (typeof window !== "undefined") {
       localStorage.setItem("stepTwoResort", JSON.stringify(resortToEdit));
+    }
+  };
+
+  const handleRemoveResort = (index: number) => {
+    const updatedResorts = resorts.filter((_, i) => i !== index);
+    setResorts(updatedResorts);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("resorts", JSON.stringify(updatedResorts));
     }
   };
 
@@ -155,16 +178,35 @@ const StepTwo: React.FC<StepTwoProps> = ({
     return newResort.documents?.find((doc) => doc.type === type);
   };
 
-  // Clear local storage on form submission
   const handleSubmitWithClear = () => {
-    if (resorts && resorts.length === 0) {
-      toast.error("Add Resorts first");
+    if (
+      resorts.length === 0 &&
+      (!newResort.name || !newResort.location.displayName)
+    ) {
+      toast.error("Add at least one resort");
       return;
     }
+
+    if (newResort.name && newResort.location.displayName) {
+      setResorts([...resorts, newResort]);
+    }
+
     handleSubmit();
+
     if (typeof window !== "undefined") {
       localStorage.removeItem("stepTwoResort");
+      localStorage.removeItem("resorts");
     }
+  };
+
+  const openModal = (document: any) => {
+    setSelectedDocument(document);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedDocument(null);
   };
 
   return (
@@ -210,14 +252,16 @@ const StepTwo: React.FC<StepTwoProps> = ({
                 style={{ paddingRight: "4px", paddingLeft: "0" }}
               >
                 <button
+                  role="button"
                   type="button"
                   className="btn btn-primary btn-sm rounded-pill"
-                  disabled
+                  onClick={() => openModal(getDocumentByType("license")!)}
                 >
                   {getDocumentByType("license")?.name}
                 </button>
                 <button
                   type="button"
+                  role="button"
                   className="btn p-0 text-white"
                   style={{ fontSize: "15px" }}
                   onClick={() => handleRemoveFile("license")}
@@ -228,6 +272,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
             </div>
           ) : (
             <FileUploadDropzone
+              userID={user?._id || "user_id"}
               documentType="license"
               onFileUpload={(doc) => handleFileUpload(doc, "license")}
             />
@@ -244,7 +289,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                 <button
                   type="button"
                   className="btn btn-primary btn-sm rounded-pill"
-                  disabled
+                  onClick={() => openModal(getDocumentByType("registration"))}
                 >
                   {getDocumentByType("registration")?.name}
                 </button>
@@ -260,6 +305,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
             </div>
           ) : (
             <FileUploadDropzone
+              userID={user?._id || "user_id"}
               documentType="registration"
               onFileUpload={(doc) => handleFileUpload(doc, "registration")}
             />
@@ -310,7 +356,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                     type="button"
                     className="btn p-0 text-white"
                     style={{ fontSize: "15px" }}
-                    onClick={() => handleEditResort(index)}
+                    onClick={() => handleRemoveResort(index)}
                   >
                     <i className="fa-solid fa-circle-xmark" />
                   </button>
@@ -320,6 +366,12 @@ const StepTwo: React.FC<StepTwoProps> = ({
           </div>
         )}
       </div>
+
+      <PDFPreviewModal
+        isOpen={isModalOpen}
+        document={selectedDocument}
+        onClose={closeModal}
+      />
     </div>
   );
 };

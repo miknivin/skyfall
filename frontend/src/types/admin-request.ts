@@ -9,6 +9,7 @@ export interface Document {
   type:string
   name: string;
   url: string;
+  file?:File
 }
 
 export interface Resort {

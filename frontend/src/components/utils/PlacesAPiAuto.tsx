@@ -153,7 +153,7 @@ const PlacesAutocomplete: React.FC<PlacesAutocompleteProps> = ({
           (!isPlaceSelected || inputValue !== selectedPlaceName) &&
           setIsDropdownOpen(true)
         }
-        placeholder="Search places..."
+        placeholder="Search your location"
         className="form-control"
       />
       {(isDropdownOpen || isFetchingPredictions) && (

@@ -7,9 +7,9 @@ import StepTwo from "./StepTwo";
 import { useAdminRequestMutation } from "@/redux/api/adminApi";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/rootReducer";
-
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+
 const PartnerMultiForm: React.FC = () => {
   const [step, setStep] = useState(1);
   const router = useRouter();
@@ -26,13 +26,15 @@ const PartnerMultiForm: React.FC = () => {
     },
   });
 
+  const [errorMessage, setErrorMessage] = useState(null);
+
   useEffect(() => {
     if (!isAuthenticated) {
       toast.error("Please log in to access this form.");
       router.push("/");
     }
   }, [isAuthenticated, router]);
-  // Initialize the mutation hook
+
   const [adminRequest, { isLoading, isError, error }] =
     useAdminRequestMutation();
 
@@ -40,10 +42,40 @@ const PartnerMultiForm: React.FC = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await adminRequest(formData).unwrap();
-      //console.log("Submission successful:", response);
-      // Optionally reset form or navigate to a success page
+      // Ensure userId is set
+      const updatedFormData = {
+        ...formData,
+        userId: user?._id || formData.userId || "680f2cb70fdc0bb41dc0f3a1",
+      };
+
+      // Since files are already uploaded in FileUploadDropzone,
+      // we just need to clean up the documents to remove the file object
+      const updatedResorts = (
+        updatedFormData.requestDetails?.resorts || []
+      ).map((resort) => ({
+        ...resort,
+        documents: resort.documents?.map((doc: any) => ({
+          name: doc.name,
+          url: doc.url, // Already the original S3 URL
+          type: doc.type,
+        })),
+      }));
+
+      // Update formData with the processed resorts
+      const finalFormData = {
+        ...updatedFormData,
+        requestDetails: {
+          ...updatedFormData.requestDetails,
+          resorts: updatedResorts,
+        },
+      };
+
+      // Submit the form to the backend
+      const response = await adminRequest(finalFormData).unwrap();
+
+      // Reset form and local storage
       setFormData({
+        userId: user ? user._id : "",
         name: "",
         email: "",
         phone: "",
@@ -52,20 +84,21 @@ const PartnerMultiForm: React.FC = () => {
         },
       });
       localStorage.removeItem("stepOneInputs");
-      toast.success("Request send successfully. Await confirmation");
-      setStep(1); // Reset to step 1 or redirect as needed
+      localStorage.removeItem("stepTwoResort");
+      localStorage.removeItem("resorts");
+
+      toast.success("Request sent successfully. Await confirmation");
+      setStep(1);
     } catch (err: any) {
       console.error("Submission failed:", err);
-      toast.error(err ? err?.data?.message : "Unexpected Error");
-      // Handle error (e.g., show error message to user)
+      setErrorMessage(err?.data?.message || "Unexpected Error");
+      toast.error(err?.data?.message || "Unexpected Error");
     }
   };
 
   return (
     <>
-      {/* Stepper */}
       <div className="d-flex flex-row justify-content-center gap-3 align-items-center w-100 mb-4">
-        {/* Step 1 */}
         <div
           className="d-flex align-items-center mb-3 mb-sm-0 me-sm-4"
           style={{ cursor: step > 1 ? "pointer" : "default" }}
@@ -90,7 +123,6 @@ const PartnerMultiForm: React.FC = () => {
           </div>
         </div>
 
-        {/* Step 2 */}
         <div className="d-flex align-items-center">
           <span
             className={`d-flex align-items-center justify-content-center rounded-circle border fw-bold ${
@@ -110,7 +142,6 @@ const PartnerMultiForm: React.FC = () => {
         </div>
       </div>
 
-      {/* Form Steps */}
       <div>
         {step === 1 && (
           <StepOne
@@ -134,9 +165,10 @@ const PartnerMultiForm: React.FC = () => {
         )}
       </div>
 
-      {/* Optional: Display loading or error states */}
       {isLoading && <p>Submitting...</p>}
-      {/* {isError && <p>Error: {"Submission failed"}</p>} */}
+      {isError && (
+        <p>Error: {(error && errorMessage) || "Submission failed"}</p>
+      )}
     </>
   );
 };

@@ -35,7 +35,6 @@ const HeaderOne = ({ hasTopBar, hasTopBarTwo, headerClass }: HeaderProps) => {
   const { isAuthenticated, user } = useSelector(
     (state: RootState) => state.user
   );
-  console.log(user, "isAiy");
 
   const dispatch = useDispatch();
   const {
@@ -145,11 +144,11 @@ const HeaderOne = ({ hasTopBar, hasTopBarTwo, headerClass }: HeaderProps) => {
                   </div>
                 </div>
                 <div className="col-xl-6 d-none d-xl-block">
-                  {/* <div className="it-main-menu text-center">
+                  <div className="it-main-menu text-center">
                     <nav className="it-menu-content">
                       <MenuItems />
                     </nav>
-                  </div> */}
+                  </div>
                 </div>
                 <div className="col-xl-4 col-lg-6 col-md-6 col-6">
                   <div className="it-header-bottom-right d-flex align-items-center justify-content-end">

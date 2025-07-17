@@ -1,5 +1,6 @@
 import Resort from "../models/Resort.js";
-
+import { v4 as uuidv4 } from "uuid";
+import { generatePresignedUrlForUpload } from "../utils/preSignedUrls.js";
 export const getAllResorts = async (req, res) => {
   try {
     const resorts = await Resort.find({}).lean();
@@ -36,4 +37,4 @@ export const getResortById = async (req, res) => {
       console.error("Error fetching resort by ID:", error);
       res.status(400).json({ message: "Invalid ID or server error" });
     }
-  };
+};

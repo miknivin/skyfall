@@ -1,12 +1,12 @@
-import Breadcrumb from '@/components/breadcrumb/breadcrumb';
-import DestinationDetailsArea from '@/components/destination/destination-details/destination-details-area';
-import FooterOne from '@/layouts/footers/footer-one';
-import HeaderTwo from '@/layouts/headers/header-two';
-import Wrapper from '@/layouts/wrapper';
-import { IDestinationDT } from '@/types/destination-d-t';
+import Breadcrumb from "@/components/breadcrumb/breadcrumb";
+import DestinationDetailsArea from "@/components/destination/destination-details/destination-details-area";
+import FooterOne from "@/layouts/footers/footer-one";
+import HeaderTwo from "@/layouts/headers/header-two";
+import Wrapper from "@/layouts/wrapper";
+import { IDestinationDT } from "@/types/destination-d-t";
 
 interface DestinationDetailsProps {
-  destination: IDestinationDT;
+  destination: any;
 }
 
 const DestinationDetailsMain = ({ destination }: DestinationDetailsProps) => {
@@ -14,7 +14,10 @@ const DestinationDetailsMain = ({ destination }: DestinationDetailsProps) => {
     <Wrapper>
       <HeaderTwo />
       <main>
-        <Breadcrumb title={destination?.title} subtitle="Destination" />
+        <Breadcrumb
+          title={destination?.name || destination.title}
+          subtitle="Destination"
+        />
 
         <DestinationDetailsArea destination={destination} />
       </main>

@@ -88,19 +88,16 @@ const FooterOne = ({
                 <div className="it-footer-list">
                   <ul>
                     <li>
-                      <a href="#">Home</a>
+                      <Link href="/">Home</Link>
                     </li>
                     <li>
-                      <a href="#">About us</a>
+                      <Link href="/about">About us</Link>
                     </li>
                     <li>
-                      <a href="#">Blog update</a>
+                      <Link href="/service">Our services</Link>
                     </li>
                     <li>
-                      <a href="#">Our services</a>
-                    </li>
-                    <li>
-                      <a href="#">Testimonial</a>
+                      <Link href="/career">Career</Link>
                     </li>
                   </ul>
                 </div>
