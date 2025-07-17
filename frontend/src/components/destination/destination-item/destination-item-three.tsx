@@ -1,9 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { IDestinationDT } from '@/types/destination-d-t';
 
 interface DestinationProps {
-  destination: IDestinationDT;
+  destination: any;
 }
 
 const DestinationItemThree = ({ destination }: DestinationProps) => {
