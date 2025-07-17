@@ -113,8 +113,11 @@ const MenuItems = ({ isMobileMenu }: IProps) => {
           }
         >
           <li>
-            {districts.map((district) => (
-              <Link href={`/destination-details/${district.id}`}>
+            {districts.map((district, index) => (
+              <Link
+                key={district.id || index}
+                href={`/destination-details/${district.id}`}
+              >
                 {district.name}
               </Link>
             ))}
