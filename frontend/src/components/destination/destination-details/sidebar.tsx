@@ -1,14 +1,14 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { tourPackagesDataThree } from '@/data/tour-packages-data';
-import { updatePrice } from '@/utils/helper';
+import Image from "next/image";
+import Link from "next/link";
+import { tourPackagesDataThree } from "@/data/tour-packages-data";
+import { updatePrice } from "@/utils/helper";
 
 const Sidebar = () => {
   return (
     <div className="it-discover-right">
       <div className="it-discover-package mb-60">
         <div className="sidebar-widget-wrapper mb-30">
-          <div className="sidebar-widget widget">
+          {/* <div className="sidebar-widget widget">
             <h6 className="sidebar-widget-title small mb-15">Search Here</h6>
             <div className="sidebar-search">
               <form className="sidebar-search-form" action="#" method="get">
@@ -18,7 +18,7 @@ const Sidebar = () => {
                 </button>
               </form>
             </div>
-          </div>
+          </div> */}
 
           <div className="sidebar-widget-divider"></div>
 
@@ -56,7 +56,7 @@ const Sidebar = () => {
         </div>
       </div>
 
-      <div className="it-discover-deals">
+      {/* <div className="it-discover-deals">
         <h3 className="it-discover-package-title">Recent Tours</h3>
         <div className="it-discover-deals-box">
           {tourPackagesDataThree
@@ -70,7 +70,7 @@ const Sidebar = () => {
                         alt={item.title}
                         width={90}
                         height={90}
-                        style={{ height: 'auto' }}
+                        style={{ height: "auto" }}
                       />
                     </a>
                   </div>
@@ -106,7 +106,7 @@ const Sidebar = () => {
             ))
             .slice(2, 5)}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

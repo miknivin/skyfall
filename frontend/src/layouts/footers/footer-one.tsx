@@ -60,11 +60,11 @@ const FooterOne = ({
                   </Link>
                 </div>
                 <div className="it-footer-content">
-                  <p>
+                  {/* <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                     doeiusmod tempor incididunt ut labore et dolore magna
                     aliqua.
-                  </p>
+                  </p> */}
                   <div className="it-footer-social">
                     <a href="#">
                       <i className="flaticon-facebook-app-symbol"></i>
@@ -117,9 +117,9 @@ const FooterOne = ({
                     <li>
                       <a href="#">FAQ</a>
                     </li>
-                    <li>
+                    {/* <li>
                       <a href="#">Hydropower Plants</a>
-                    </li>
+                    </li> */}
                     <li>
                       <a href="#">Customer support</a>
                     </li>
